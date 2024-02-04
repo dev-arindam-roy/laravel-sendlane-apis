@@ -1,0 +1,29 @@
+{
+    "name": "arindam/sendlane-apis",
+    "description": "A laravel package for sendlane apis (v2)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arindam Roy",
+            "email": "arindam.roy.developer@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Arindam\\SendlaneApis\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Arindam\\SendlaneApis\\SendlaneApiServiceProvider"
+            ],
+            "aliases": {
+                "SendlaneApis": "Arindam\\SendlaneApis\\Sendlane\\SendlaneClassFacade"
+            }
+        }
+    }
+}
