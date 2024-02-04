@@ -9,7 +9,7 @@
 ### STEP 1: Run the composer command:
 
 ```shell
-composer require arindam/shopify-apis
+composer require arindam/sendlane-apis
 ```
 
 ### STEP 2: Laravel without auto-discovery:
@@ -17,13 +17,13 @@ composer require arindam/shopify-apis
 If you don't use auto-discovery, add the ServiceProvider to the providers array in config/app.php
 
 ```php
-Arindam\ShopifyApis\ShopifyApiServiceProvider::class,
+Arindam\SendlaneApis\SendlaneApiServiceProvider::class,
 ```
 
 You need to use the below facade, add this to aliases section in config/app.php:
 
 ```php
-'ShopifyApis' => Arindam\ShopifyApis\Shopify\ShopifyClassFacade::class,
+'SendlaneApis' => Arindam\SendlaneApis\Sendlane\SendlaneClassFacade::class,
 ```
 
 ### STEP 3: (Optional) Publish the package config:
@@ -31,91 +31,93 @@ You need to use the below facade, add this to aliases section in config/app.php:
 If you need to customize the api configuration
 
 ```php
-php artisan vendor:publish --provider="Arindam\ShopifyApis\ShopifyApiServiceProvider" --force
+php artisan vendor:publish --provider="Arindam\SendlaneApis\SendlaneApiServiceProvider" --force
 
 - OR -
 
-php artisan vendor:publish --tag="shopifyapis:config"
+php artisan vendor:publish --tag="sendlaneapis:config"
 ```
 
 ## How to use?:
 
-First, you need to create an app in your shopify admin section and you will get the access token.
+First, you need to create Sendlane (https://www.sendlane.com/) account and generate a api token.
 Then, you need to just add below information in your .env file  
-
+LIKE: 
 ```php
-
-SHOPIFY_STORE_URL=https://{your-store-name}.myshopify.com
-SHOPIFY_ACCESS_TOKEN={YOUR_APP_ACCESS_TOKEN}
+SENDLANE_API_TOKEN=YOUR_API_TOKEN
 
 ```
 
 ## Now enjoy with the below methods:
 
-> **Products APIs**
+> **LIST APIs**
 
 ```php
 
-1.  ShopifyApis::allProducts();
-2.  ShopifyApis::allActiveProducts();
-3.  ShopifyApis::allDraftProducts();
-4.  ShopifyApis::allArchivedProducts();
-5.  ShopifyApis::allPublishedProducts();
-6.  ShopifyApis::productByIds($productIds); // pass an array of product ids, ex: ['xxx', 'xxx']
-7.  ShopifyApis::specificProductById($productId); // pass specific product id as param
-8.  ShopifyApis::allActiveProductCount();
-9.  ShopifyApis::allDraftProductCount();
-10. ShopifyApis::allProducts();
-11. ShopifyApis::productImages($productId); // pass specific product id as param
-12. ShopifyApis::productImagesCount($productId); // pass specific product id as param
+//Get all lists
+1. SendlaneApis::allLists();
+
+//Create a list
+$data = array('name' => 'your list name', 'description' => 'your list description');
+2. SendlaneApis::createList($data);
+
+//Get a list details by list id
+3. SendlaneApis::listById($listId);
+
+//Update a list by list id
+$data = array('name' => 'your edited list name', 'description' => 'your edited list description');
+4. SendlaneApis::updateList($listId, $data);
+
+//Delete a list by list id
+5. SendlaneApis::deleteList($listId);
 
 ```
 
-> **Product Collection APIs**
+> **TAG APIs**
 
 ```php
 
-1.  ShopifyApis::allCollections();
-2.  ShopifyApis::specificCollection($collectionId); // pass specific collection id as param
-3.  ShopifyApis::allCollectionCount();
-4.  ShopifyApis::collectionInfoById($collectionId); // pass specific collection id as param
-5.  ShopifyApis::productsOfCollection($collectionId); // pass specific collection id as param
+//Get all tags
+1. SendlaneApis::allTags();
+
+//Create a tag
+$data = array('name' => 'your tag name');
+2. SendlaneApis::createTag($data);
+
+//Update a tag by tag id
+$data = array('name' => 'your edited tag name');
+3. SendlaneApis::updateTag($tagId, $data);
+
+//Delete a tag by tag id
+4. SendlaneApis::deleteTag($tagId);
 
 ```
 
-> **Product Variants APIs**
+> **Custom Fields APIs**
 
 ```php
 
-1.  ShopifyApis::allProductVariants($productId); // pass specific product id as param
-2.  ShopifyApis::variantInfo($variantId); // pass specific variant id as param
-3.  ShopifyApis::productVariantCount($productId); // pass specific product id as param
+//Get all custom fields
+1. SendlaneApis::allCustomFields();
+
+//Create a custom field
+$data = array('name' => 'your custom field name');
+2. SendlaneApis::createCustomField($data);
+
+//Get a custom field details by custom field id
+3. SendlaneApis::customFieldById($customFieldId);
+
+//Update a custom field by custom field id
+$data = array('name' => 'your edited custom field name');
+3. SendlaneApis::updateCustomField($customFieldId, $data);
 
 ```
 
-> **Orders APIs**
-
-```php
-
-1.  ShopifyApis::allOrders();
-2.  ShopifyApis::allOpenOrders();
-3.  ShopifyApis::allClosedOrders();
-4.  ShopifyApis::allCancelledOrders();
-5.  ShopifyApis::allAuthorizedOrders();
-6.  ShopifyApis::allPendingOrders();
-7.  ShopifyApis::allPaidOrders();
-8.  ShopifyApis::allUnPaidOrders();
-9.  ShopifyApis::allPartialPaidOrders();
-10.  ShopifyApis::allRefundOrders();
-11.  ShopifyApis::allPartiallyRefundOrders();
-12.  ShopifyApis::allVoidOrders();
-13.  ShopifyApis::specificOrder($orderId); // pass specific order id as param
-14.  ShopifyApis::ordersByIds($orderIds); // pass an array of order ids, ex: ['xxx', 'xxx']
-
-```
+## Please have a look on the Sendlane API documentations
+[Sendlane API documentations](https://sendlane.stoplight.io/docs/api-documentation/4da9355124251-list-contact-add)
 
 ## license:
-The MIT License (MIT). Please see [License File](https://github.com/dev-arindam-roy/laravel-shopify-apis/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/dev-arindam-roy/laravel-sendlane-apis/blob/master/README.md) for more information.
 
 ## Post Issues: if found any
-If have any issue please [write me](https://github.com/dev-arindam-roy/laravel-shopify-apis/issues).
+If have any issue please [write me](https://github.com/dev-arindam-roy/laravel-sendlane-apis/issues).
