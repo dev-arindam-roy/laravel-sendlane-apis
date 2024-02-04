@@ -1,6 +1,6 @@
-# LARAVEL SHOPIFY API
+# LARAVEL SENDLANE APIS
 
-### A laravel package to integrate all shopify apis
+### A laravel package to integrate all Sendlane apis (v2)
 
 ## Installation
 
